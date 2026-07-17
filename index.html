@@ -5,428 +5,93 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Obstacles of Leaving</title>
   <style>
-    :root {
-      --bg: #0c0d10;
-      --panel: #15171c;
-      --text: #f4f1ea;
-      --muted: #bbb6ab;
-      --accent: #f0b44d;
-      --danger: #d9645d;
-      --border: rgba(255,255,255,.14);
-    }
-
-    * { box-sizing: border-box; }
-
-    html, body {
-      width: 100%;
-      height: 100%;
-      margin: 0;
-      overflow: hidden;
-      background: var(--bg);
-      color: var(--text);
-      font-family: Arial, Helvetica, sans-serif;
-    }
-
-    body {
-      display: grid;
-      place-items: center;
-    }
-
-    .screen {
-      width: 100vw;
-      height: 100vh;
-      padding: clamp(28px, 4vw, 72px);
-      display: grid;
-      grid-template-rows: auto 1fr auto;
-      gap: 24px;
-      background:
-        radial-gradient(circle at center, rgba(240,180,77,.08), transparent 45%),
-        linear-gradient(180deg, #111318, #090a0d);
-    }
-
-    .header {
-      text-align: center;
-    }
-
-    .eyebrow {
-      margin: 0 0 12px;
-      color: var(--accent);
-      font-size: clamp(16px, 1.8vw, 28px);
-      font-weight: 800;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-    }
-
-    h1 {
-      margin: 0;
-      font-size: clamp(42px, 6vw, 88px);
-      line-height: .98;
-      letter-spacing: -.03em;
-    }
-
-    .content {
-      display: grid;
-      place-items: center;
-      text-align: center;
-      max-width: 1200px;
-      width: 100%;
-      margin: 0 auto;
-    }
-
-    .card {
-      width: min(1100px, 92vw);
-      min-height: 46vh;
-      padding: clamp(28px, 4vw, 64px);
-      border: 1px solid var(--border);
-      border-radius: 28px;
-      background: rgba(21,23,28,.88);
-      box-shadow: 0 18px 70px rgba(0,0,0,.45);
-      display: grid;
-      place-items: center;
-      transition: opacity .25s ease, transform .25s ease;
-    }
-
-    .card.fade {
-      opacity: 0;
-      transform: scale(.985);
-    }
-
-    .attempt {
-      margin: 0 0 20px;
-      color: var(--accent);
-      font-size: clamp(18px, 2.2vw, 34px);
-      font-weight: 800;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-    }
-
-    .message {
-      margin: 0;
-      max-width: 1000px;
-      font-size: clamp(30px, 4.7vw, 70px);
-      line-height: 1.12;
-      font-weight: 800;
-      text-wrap: balance;
-    }
-
-    .detail {
-      margin: 28px auto 0;
-      max-width: 950px;
-      color: var(--muted);
-      font-size: clamp(18px, 2.2vw, 32px);
-      line-height: 1.4;
-      text-wrap: balance;
-    }
-
-    .controls {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 24px;
-      flex-wrap: wrap;
-      padding-bottom: 4px;
-    }
-
-    .control {
-      border: 0;
-      border-radius: 999px;
-      padding: 18px 28px;
-      font-size: clamp(18px, 2vw, 28px);
-      font-weight: 900;
-      letter-spacing: .06em;
-      text-transform: uppercase;
-      cursor: pointer;
-    }
-
-    .primary {
-      background: var(--accent);
-      color: #15110a;
-      min-width: min(520px, 80vw);
-      box-shadow: 0 0 36px rgba(240,180,77,.25);
-    }
-
-    .secondary {
-      background: #2b2e35;
-      color: var(--text);
-      border: 1px solid var(--border);
-      min-width: 220px;
-    }
-
-    .control:active {
-      transform: translateY(2px);
-    }
-
-    .status {
-      position: fixed;
-      right: 22px;
-      bottom: 18px;
-      color: var(--muted);
-      font-size: 16px;
-      opacity: 0;
-      transition: opacity .2s ease;
-    }
-
-    .status.show { opacity: 1; }
-
-    .final .message {
-      color: var(--text);
-    }
-
-    .final strong {
-      color: var(--accent);
-    }
-
-    @media (max-width: 700px) {
-      .screen { padding: 22px; }
-      .card { min-height: 54vh; }
-      .controls { gap: 12px; }
-      .control { width: 100%; }
-    }
+    :root { --bg:#0c0d10; --panel:#15171c; --text:#f4f1ea; --muted:#bbb6ab; --accent:#f0b44d; --border:rgba(255,255,255,.14); }
+    * { box-sizing:border-box; }
+    html,body { width:100%; height:100%; margin:0; overflow:hidden; background:var(--bg); color:var(--text); font-family:Arial,Helvetica,sans-serif; }
+    body { display:grid; place-items:center; }
+    .screen { width:100vw; height:100vh; padding:clamp(24px,4vw,72px); display:grid; grid-template-rows:auto 1fr auto; gap:20px; background:radial-gradient(circle at center,rgba(240,180,77,.08),transparent 45%),linear-gradient(180deg,#111318,#090a0d); }
+    .header { text-align:center; }
+    .eyebrow { margin:0 0 12px; color:var(--accent); font-size:clamp(16px,1.8vw,28px); font-weight:800; letter-spacing:.18em; text-transform:uppercase; }
+    h1 { margin:0; font-size:clamp(42px,6vw,88px); line-height:.98; letter-spacing:-.03em; }
+    .blinking-word { display:inline-block; color:var(--accent); animation:blinkLeave 1.6s ease-in-out infinite; }
+    @keyframes blinkLeave { 0%,100%{opacity:1;text-shadow:0 0 22px rgba(240,180,77,.35)} 50%{opacity:.18;text-shadow:none} }
+    .progress { min-height:36px; margin-top:20px; display:flex; justify-content:center; align-items:center; gap:clamp(10px,1.6vw,22px); }
+    .progress-dot { width:clamp(15px,1.7vw,25px); height:clamp(15px,1.7vw,25px); border:2px solid rgba(240,180,77,.55); border-radius:50%; background:transparent; transition:background .4s ease,border-color .4s ease,box-shadow .4s ease,transform .4s ease; }
+    .progress-dot.completed { background:var(--accent); border-color:var(--accent); box-shadow:0 0 18px rgba(240,180,77,.45); }
+    .progress-dot.current { transform:scale(1.22); animation:currentDotPulse 1.1s ease-in-out infinite; }
+    @keyframes currentDotPulse { 0%,100%{box-shadow:0 0 10px rgba(240,180,77,.35)} 50%{box-shadow:0 0 28px rgba(240,180,77,.85)} }
+    .content { display:grid; place-items:center; text-align:center; max-width:1200px; width:100%; margin:0 auto; }
+    .card { width:min(1100px,92vw); min-height:44vh; padding:clamp(28px,4vw,64px); border:1px solid var(--border); border-radius:28px; background:rgba(21,23,28,.88); box-shadow:0 18px 70px rgba(0,0,0,.45); display:grid; place-items:center; transition:opacity .55s ease,transform .55s ease; }
+    .card.fade { opacity:0; transform:scale(.975); }
+    .attempt { margin:0 0 20px; color:var(--accent); font-size:clamp(18px,2.2vw,34px); font-weight:800; letter-spacing:.12em; text-transform:uppercase; }
+    .message { margin:0; max-width:1000px; font-size:clamp(30px,4.7vw,70px); line-height:1.12; font-weight:800; text-wrap:balance; }
+    .detail { margin:28px auto 0; max-width:950px; color:var(--muted); font-size:clamp(18px,2.2vw,32px); line-height:1.4; text-wrap:balance; }
+    .waiting-message { animation:waitingPulse 1.15s ease-in-out infinite; }
+    .waiting-dots::after { display:inline-block; width:1.4em; text-align:left; content:""; animation:animatedEllipsis 1.5s steps(4,end) infinite; }
+    @keyframes waitingPulse { 0%,100%{opacity:.55;transform:scale(.985)} 50%{opacity:1;transform:scale(1)} }
+    @keyframes animatedEllipsis { 0%{content:""} 25%{content:"."} 50%{content:".."} 75%,100%{content:"..."} }
+    .controls { display:flex; justify-content:center; align-items:center; gap:24px; flex-wrap:wrap; padding-bottom:4px; }
+    .control { border:0; border-radius:999px; padding:18px 28px; font-size:clamp(18px,2vw,28px); font-weight:900; letter-spacing:.06em; text-transform:uppercase; cursor:pointer; transition:opacity .2s ease,transform .15s ease,filter .2s ease; }
+    .primary { background:var(--accent); color:#15110a; min-width:min(520px,80vw); box-shadow:0 0 36px rgba(240,180,77,.25); }
+    .secondary { background:#2b2e35; color:var(--text); border:1px solid var(--border); min-width:220px; }
+    .control:active { transform:translateY(2px); }
+    .control:disabled { cursor:not-allowed; opacity:.35; filter:grayscale(.4); }
+    .status { position:fixed; right:22px; bottom:18px; color:var(--muted); font-size:16px; opacity:0; transition:opacity .2s ease; }
+    .status.show { opacity:1; }
+    .final .message { color:var(--text); }
+    .final strong { color:var(--accent); }
+    @media (max-width:700px) { .screen{padding:18px}.progress{margin-top:14px}.card{min-height:50vh}.controls{gap:12px}.control{width:100%} }
+    @media (prefers-reduced-motion:reduce) { .blinking-word,.waiting-message,.progress-dot.current{animation:none}.card{transition-duration:.15s} }
   </style>
 </head>
 <body>
   <main class="screen">
     <header class="header">
       <p class="eyebrow">Interactive Exhibit</p>
-      <h1>Obstacles of Leaving</h1>
+      <h1>Obstacles of <span class="blinking-word">Leave</span>ing</h1>
+      <div id="progress" class="progress" aria-label="Leaving attempt progress"></div>
     </header>
-
-    <section class="content">
-      <div id="card" class="card" aria-live="polite"></div>
-    </section>
-
+    <section class="content"><div id="card" class="card" aria-live="polite"></div></section>
     <footer class="controls">
-      <button id="leaveButton" class="control primary" type="button">
-        Attempt to Leave
-      </button>
-      <button id="resetButton" class="control secondary" type="button">
-        Start Over
-      </button>
+      <button id="leaveButton" class="control primary" type="button">Attempt to Leave</button>
+      <button id="resetButton" class="control secondary" type="button">Start Over</button>
     </footer>
   </main>
-
   <div id="status" class="status" aria-live="polite"></div>
-
   <script>
-    /*
-      Hardware mapping:
-      - USB encoder key "1" = ATTEMPT TO LEAVE
-      - USB encoder key "2" = START OVER
-
-      Adjust the timeout values below as needed.
-    */
-
-    const IDLE_RESET_MS = 60000;
-    const IDLE_WARNING_MS = 10000;
-    const FINAL_SCREEN_MS = 20000;
-    const TOTAL_ATTEMPTS = 7;
-
-    const obstacles = [
-      {
-        title: "You do not have access to your own bank account.",
-        detail: "Without money for transportation, housing, food, or a deposit, leaving safely may not be possible today. Return to abuser."
-      },
-      {
-        title: "Your partner has threatened to hurt you if you leave.",
-        detail: "The period surrounding separation can be especially dangerous for you and your children. Fear of violence grips you. Return to abuser."
-      },
-      {
-        title: "You have nowhere safe to stay tonight.",
-        detail: "Friends, family, and shelters may be unavailable, full, too far away, or known to the person causing harm. Return to abuser."
-      },
-      {
-        title: "Your children are being used to keep you from leaving.",
-        detail: "Fear of losing custody, disrupting their lives, or exposing them to retaliation can make every decision more difficult. Return to abuser."
-      },
-      {
-        title: "You are isolated from friends and family.",
-        detail: "Without a trusted support network, arranging transportation, housing, childcare, and emotional support becomes much harder. Return to abuser."
-      },
-      {
-        title: "Your phone, accounts, or location are monitored by your abuser.",
-        detail: "Technology can be used to track plans, read messages, or discover where someone is seeking help. Fear of being tracked and found prevents you from leaving. Return to abuser. "
-      },
-      {
-        title: "You are afraid no one will believe you.",
-        detail: "Shame, manipulation, and past experiences with systems or institutions can make asking for help feel unsafe. Return to abuser."
-      },
-      {
-        title: "You depend on your partner for housing.",
-        detail: "Leaving may also mean risking homelessness, losing belongings, or having no stable place to return to. Return to abuser."
-      },
-      {
-        title: "You do not have reliable transportation.",
-        detail: "A vehicle, bus fare, or a safe ride may be unavailable at the exact moment you are ready to leave. Return to abuser."
-      },
-      {
-        title: "Your partner has promised that things will change.",
-        detail: "Cycles of harm, apology, hope, and reconciliation can make the decision to leave emotionally complex. Return to abuser."
-      },
-      {
-        title: "You are worried about losing your job.",
-        detail: "Missed shifts, harassment at work, or a sudden move can threaten the income needed to become independent. Return to abuser."
-      },
-      {
-        title: "You fear immigration or legal consequences.",
-        detail: "An abuser may use immigration status, legal threats, or misinformation to create fear and control. Return to abuser."
-      },
-      {
-        title: "You have no childcare available for your children.",
-        detail: "Lack of childcare prevents you from working/earning money and living independently. Return to abuser."
-      },
-      {
-        title: "You receive religious pressure from your spiritual community.",
-        detail: "Good-intentioned religious communities and institutions pressure you into rationalizing abusive behavior. Return to abuser."
-      }
+    const IDLE_RESET_MS=60000, IDLE_WARNING_MS=10000, FINAL_SCREEN_MS=20000, WAIT_SCREEN_MS=3500, TOTAL_ATTEMPTS=7;
+    const obstacles=[
+      {title:"You do not have access to your own bank account.",detail:"Without money for transportation, housing, food, or a deposit, leaving safely may not be possible today. Return to abuser."},
+      {title:"Your partner has threatened to hurt you if you leave.",detail:"The period surrounding separation can be especially dangerous for you and your children. Fear of violence grips you. Return to abuser."},
+      {title:"You have nowhere safe to stay tonight.",detail:"Friends, family, and shelters may be unavailable, full, too far away, or known to the person causing harm. Return to abuser."},
+      {title:"Your children are being used to keep you from leaving.",detail:"Fear of losing custody, disrupting their lives, or exposing them to retaliation can make every decision more difficult. Return to abuser."},
+      {title:"You are isolated from friends and family.",detail:"Without a trusted support network, arranging transportation, housing, childcare, and emotional support becomes much harder. Return to abuser."},
+      {title:"Your phone, accounts, or location are monitored by your abuser.",detail:"Technology can be used to track plans, read messages, or discover where someone is seeking help. Fear of being tracked and found prevents you from leaving. Return to abuser."},
+      {title:"You are afraid no one will believe you.",detail:"Shame, manipulation, and past experiences with systems or institutions can make asking for help feel unsafe. Return to abuser."},
+      {title:"You depend on your partner for housing.",detail:"Leaving may also mean risking homelessness, losing belongings, or having no stable place to return to. Return to abuser."},
+      {title:"You do not have reliable transportation.",detail:"A vehicle, bus fare, or a safe ride may be unavailable at the exact moment you are ready to leave. Return to abuser."},
+      {title:"Your partner has promised that things will change.",detail:"Cycles of harm, apology, hope, and reconciliation can make the decision to leave emotionally complex. Return to abuser."},
+      {title:"You are worried about losing your job.",detail:"Missed shifts, harassment at work, or a sudden move can threaten the income needed to become independent. Return to abuser."},
+      {title:"You fear immigration or legal consequences.",detail:"An abuser may use immigration status, legal threats, or misinformation to create fear and control. Return to abuser."},
+      {title:"You have no childcare available for your children.",detail:"Lack of childcare prevents you from working, earning money, and living independently. Return to abuser."},
+      {title:"You receive religious pressure from your spiritual community.",detail:"Well-intentioned religious communities and institutions may pressure you into rationalizing abusive behavior. Return to abuser."}
     ];
-
-    const card = document.getElementById("card");
-    const status = document.getElementById("status");
-    const leaveButton = document.getElementById("leaveButton");
-    const resetButton = document.getElementById("resetButton");
-
-    let attempt = 0;
-    let availableObstacles = [];
-    let idleTimer = null;
-    let warningTimer = null;
-    let countdownTimer = null;
-    let finalTimer = null;
-
-    function shuffledCopy(items) {
-      return [...items].sort(() => Math.random() - 0.5);
-    }
-
-    function clearTimers() {
-      clearTimeout(idleTimer);
-      clearTimeout(warningTimer);
-      clearInterval(countdownTimer);
-      clearTimeout(finalTimer);
-      idleTimer = null;
-      warningTimer = null;
-      countdownTimer = null;
-      finalTimer = null;
-      status.classList.remove("show");
-      status.textContent = "";
-    }
-
-    function transitionTo(html, className = "") {
-      card.classList.add("fade");
-
-      setTimeout(() => {
-        card.className = `card ${className}`.trim();
-        card.innerHTML = html;
-        requestAnimationFrame(() => card.classList.remove("fade"));
-      }, 220);
-    }
-
-    function showOpeningScreen() {
-      transitionTo(`
-        <div>
-          <p class="attempt">Begin Here</p>
-          <p class="message">Press “Attempt to Leave” to begin.</p>
-          <p class="detail">
-            Each attempt reveals a barrier that can prevent a survivor from leaving an abusive relationship safely.
-          </p>
-        </div>
-      `);
-    }
-
-    function showObstacle(obstacle) {
-      transitionTo(`
-        <div>
-          <p class="attempt">Leaving Attempt #${attempt}</p>
-          <p class="message">${obstacle.title}</p>
-          <p class="detail">${obstacle.detail}</p>
-        </div>
-      `);
-    }
-
-    function showFinalMessage() {
-      transitionTo(`
-        <div>
-          <p class="attempt">Seven Attempts</p>
-          <p class="message">
-            Survivors on average make <strong>SEVEN attempts</strong> before they are able to leave safely.
-          </p>
-          <p class="detail">
-            Leaving is rarely one decision. It is a process shaped by safety, money, housing, children, isolation, and access to support.
-            Every attempt requires courage.  Thank you for participating in this exhibit: Obstacles of Leaving.  Please proceed to the next step of the Celebrate the Journey Experience.
-          </p>
-        </div>
-      `, "final");
-
-      finalTimer = setTimeout(resetExperience, FINAL_SCREEN_MS);
-    }
-
-    function restartIdleTimer() {
-      clearTimeout(idleTimer);
-      clearTimeout(warningTimer);
-      clearInterval(countdownTimer);
-      status.classList.remove("show");
-      status.textContent = "";
-
-      if (attempt === 0 || attempt >= TOTAL_ATTEMPTS) return;
-
-      warningTimer = setTimeout(() => {
-        let secondsLeft = Math.ceil(IDLE_WARNING_MS / 1000);
-        status.textContent = `Session resets in ${secondsLeft} seconds`;
-        status.classList.add("show");
-
-        countdownTimer = setInterval(() => {
-          secondsLeft -= 1;
-
-          if (secondsLeft > 0) {
-            status.textContent = `Session resets in ${secondsLeft} seconds`;
-          } else {
-            clearInterval(countdownTimer);
-          }
-        }, 1000);
-      }, IDLE_RESET_MS - IDLE_WARNING_MS);
-
-      idleTimer = setTimeout(resetExperience, IDLE_RESET_MS);
-    }
-
-    function attemptToLeave() {
-      if (attempt >= TOTAL_ATTEMPTS) return;
-
-      attempt += 1;
-      clearTimeout(finalTimer);
-
-      if (attempt < TOTAL_ATTEMPTS) {
-        if (availableObstacles.length === 0) {
-          availableObstacles = shuffledCopy(obstacles);
-        }
-
-        const obstacle = availableObstacles.pop();
-        showObstacle(obstacle);
-        restartIdleTimer();
-      } else {
-        clearTimers();
-        showFinalMessage();
-      }
-    }
-
-    function resetExperience() {
-      clearTimers();
-      attempt = 0;
-      availableObstacles = shuffledCopy(obstacles);
-      showOpeningScreen();
-    }
-
-    leaveButton.addEventListener("click", attemptToLeave);
-    resetButton.addEventListener("click", resetExperience);
-
-    document.addEventListener("keydown", event => {
-      if (event.repeat) return;
-
-      if (event.key === "1") {
-        attemptToLeave();
-      } else if (event.key === "2" || event.key === "Escape") {
-        resetExperience();
-      }
-    });
-
-    resetExperience();
+    const card=document.getElementById("card"),progress=document.getElementById("progress"),status=document.getElementById("status"),leaveButton=document.getElementById("leaveButton"),resetButton=document.getElementById("resetButton");
+    let attempt=0,availableObstacles=[],isWaiting=false,idleTimer=null,warningTimer=null,countdownTimer=null,finalTimer=null,waitingTimer=null,transitionTimer=null;
+    function shuffledCopy(items){const copy=[...items];for(let i=copy.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[copy[i],copy[j]]=[copy[j],copy[i]];}return copy;}
+    function renderProgress(currentAttempt,waiting=false){progress.innerHTML="";for(let i=1;i<=TOTAL_ATTEMPTS;i++){const dot=document.createElement("span");dot.className="progress-dot";if(i<=currentAttempt)dot.classList.add("completed");if(waiting&&i===currentAttempt)dot.classList.add("current");dot.setAttribute("aria-label",`Attempt ${i} of ${TOTAL_ATTEMPTS}`);progress.appendChild(dot);}progress.setAttribute("aria-label",`${currentAttempt} of ${TOTAL_ATTEMPTS} attempts completed`);}
+    function clearTimers(){clearTimeout(idleTimer);clearTimeout(warningTimer);clearInterval(countdownTimer);clearTimeout(finalTimer);clearTimeout(waitingTimer);clearTimeout(transitionTimer);idleTimer=warningTimer=countdownTimer=finalTimer=waitingTimer=transitionTimer=null;status.classList.remove("show");status.textContent="";}
+    function transitionTo(html,className=""){clearTimeout(transitionTimer);card.classList.add("fade");transitionTimer=setTimeout(()=>{card.className=`card ${className}`.trim();card.innerHTML=html;requestAnimationFrame(()=>card.classList.remove("fade"));},500);}
+    function showOpeningScreen(){renderProgress(0);transitionTo(`<div><p class="attempt">Begin Here</p><p class="message">Press “Attempt to Leave” to begin.</p><p class="detail">Each attempt reveals a barrier that can prevent a survivor from leaving an abusive relationship safely.</p></div>`);}
+    function showWaitingScreen(){renderProgress(attempt,true);transitionTo(`<div><p class="attempt">Leaving Attempt #${attempt} of ${TOTAL_ATTEMPTS}</p><p class="message waiting-message">Attempting to leave<span class="waiting-dots"></span></p></div>`);}
+    function showObstacle(obstacle){renderProgress(attempt);transitionTo(`<div><p class="attempt">Leaving Attempt #${attempt} of ${TOTAL_ATTEMPTS}</p><p class="message">${obstacle.title}</p><p class="detail">${obstacle.detail}</p></div>`);}
+    function showFinalMessage(){renderProgress(TOTAL_ATTEMPTS);transitionTo(`<div><p class="attempt">Seven Attempts</p><p class="message">Survivors on average make <strong>SEVEN attempts</strong> before they are able to leave safely.</p><p class="detail">Leaving is rarely one decision. It is a process shaped by safety, money, housing, children, isolation, and access to support. Every attempt requires courage.<br><br>Thank you for participating in <em>Obstacles of Leaving</em>. Please proceed to the next step of the Celebrate the Journey Experience.</p></div>`,"final");finalTimer=setTimeout(resetExperience,FINAL_SCREEN_MS);}
+    function setWaitingState(waiting){isWaiting=waiting;leaveButton.disabled=waiting;leaveButton.textContent=waiting?"Attempt in Progress":"Attempt to Leave";}
+    function restartIdleTimer(){clearTimeout(idleTimer);clearTimeout(warningTimer);clearInterval(countdownTimer);status.classList.remove("show");status.textContent="";if(attempt===0||attempt>=TOTAL_ATTEMPTS||isWaiting)return;warningTimer=setTimeout(()=>{let secondsLeft=Math.ceil(IDLE_WARNING_MS/1000);status.textContent=`Session resets in ${secondsLeft} seconds`;status.classList.add("show");countdownTimer=setInterval(()=>{secondsLeft-=1;if(secondsLeft>0)status.textContent=`Session resets in ${secondsLeft} seconds`;else clearInterval(countdownTimer);},1000);},IDLE_RESET_MS-IDLE_WARNING_MS);idleTimer=setTimeout(resetExperience,IDLE_RESET_MS);}
+    function completeAttempt(){if(attempt===TOTAL_ATTEMPTS){setWaitingState(false);showFinalMessage();return;}if(availableObstacles.length===0)availableObstacles=shuffledCopy(obstacles);const obstacle=availableObstacles.pop();setWaitingState(false);showObstacle(obstacle);restartIdleTimer();}
+    function attemptToLeave(){if(isWaiting||attempt>=TOTAL_ATTEMPTS)return;clearTimeout(finalTimer);clearTimeout(idleTimer);clearTimeout(warningTimer);clearInterval(countdownTimer);status.classList.remove("show");status.textContent="";attempt+=1;setWaitingState(true);showWaitingScreen();waitingTimer=setTimeout(completeAttempt,WAIT_SCREEN_MS);}
+    function resetExperience(){clearTimers();attempt=0;isWaiting=false;availableObstacles=shuffledCopy(obstacles);setWaitingState(false);showOpeningScreen();}
+    leaveButton.addEventListener("click",attemptToLeave);resetButton.addEventListener("click",resetExperience);document.addEventListener("keydown",event=>{if(event.repeat)return;if(event.key==="1")attemptToLeave();else if(event.key==="2"||event.key==="Escape")resetExperience();});resetExperience();
   </script>
 </body>
 </html>
